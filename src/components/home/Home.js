@@ -11,18 +11,21 @@ class Home extends Component{
         if (authToken === null) {
             // This means that there ISN'T JWT and no user is logged in.
             axios.defaults.headers.common.Authorization = null;
+            this.props.history.push(`/login`);
         } else {
             // This means that there IS a JWT so someone must be logged in.
             axios.defaults.headers.common.Authorization = `Bearer ${authToken}`;
+
+            alert("Inicio!");
+            axios.get("http://localhost:8080/admins", {} ).then(function(response) {
+                alert("Datos Obtenidos!");
+
+            }).catch(function(error) {
+                alert("Datos NO Obtenidos :(");
+            });
         }
 
-        alert("Inicio!");
-        axios.get("http://localhost:8080/admins", {} ).then(function(response) {
-            alert("Datos Obtenidos!");
 
-        }).catch(function(error) {
-            alert("Datos NO Obtenidos :(");
-        });
 
     }
 
