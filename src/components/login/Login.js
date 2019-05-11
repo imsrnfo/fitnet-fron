@@ -11,7 +11,7 @@ class Login extends Component{
     }
 
     botonClick(event){
-        var session_url = 'http://localhost:8080/oauth/token';
+        var session_url = 'http://localhost:8081/oauth/token';
         var uname = 'USER_CLIENT_APP';
         var pass = 'password';
 
@@ -20,18 +20,26 @@ class Login extends Component{
         bodyFormData.set('password', this.refs.password.value);
         bodyFormData.set('grant_type', 'password');
 
+        //fuente: https://stackoverflow.com/questions/54243931/how-to-redirect-to-another-page-using-history-on-react-js
+        let { history } = this.props;
+
         axios.post(session_url, bodyFormData, {
             auth: {
                 username: uname,
                 password: pass
             }
         }).then(function(response) {
-            console.log('Authenticated');
-            alert("Autenticado");
+            console.log(response.data.access_token);
+            alert(response.data.access_token);
+
+            localStorage.setItem('JWT', response.data.access_token);
+            history.push(`/home`);
         }).catch(function(error) {
-            console.log('Error on Authentication');
+            console.log(error);
             alert("Error de Autenticacion");
         });
+
+
     }
 
     render(){
