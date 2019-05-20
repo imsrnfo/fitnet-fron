@@ -23,16 +23,16 @@
 
 
     <!-- Override Bootstrap CSS CDN  change theme on: https://bootstrap.build/app -->
-    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 
     <!-- Font Awesome JS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
     <!-- Sidebar -->
-    <link rel="stylesheet" href="./css/sidebar.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
 
     <!-- loading -->
-    <link rel="stylesheet" href="./css/loading.css">
+    <link rel="stylesheet" href="/css/loading.css">
 
     <!-- datepicker -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker3.css">
@@ -65,12 +65,17 @@
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
             });
-			$('#loading-screen').fadeOut();
+
         });
 
 		function ocultar(elemento){
 		    elemento.closest('.closeable-card').style.display = "none";
 		}
+
+		function ocultarLoading(){
+		    $('#loading-screen').fadeOut();
+		}
+
     </script>
 
     <!-- Datepicker -->
