@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import './css/login.css'
+import Imagen from './img/gym-icon.png';
 
 class Login extends Component{
 
@@ -20,7 +22,6 @@ class Login extends Component{
         bodyFormData.set('password', this.refs.password.value);
         bodyFormData.set('grant_type', 'password');
 
-        //fuente: https://stackoverflow.com/questions/54243931/how-to-redirect-to-another-page-using-history-on-react-js
         let { history } = this.props;
 
         axios.post(session_url, bodyFormData, {
@@ -33,7 +34,7 @@ class Login extends Component{
             alert(response.data.access_token);
 
             localStorage.setItem('JWT', response.data.access_token);
-            history.push(`/home`);
+            history.push(`/dashboard`);
         }).catch(function(error) {
             console.log(error);
             alert("Error de Autenticacion");
@@ -44,10 +45,27 @@ class Login extends Component{
 
     render(){
         return(
-            <div>
-                <input ref="username" placeholder="username = admin" />
-                <input ref="password" placeholder="password = password" />
-                <button onClick={this.botonClick}>Boton</button>
+            <div className="center-div pb-5">
+                <div className="text-center row">
+                    <div className="col-md-8 mx-auto">
+                        <div className="mb-3">
+                            <img alt="image" className="imagen m-b-md" src={Imagen}/>
+                        </div>
+                        <div className="mb-3 opacity-7">
+                            <h3>Bienvenido a FIT-NET</h3>
+                            <p>
+                                Diseñada especificamente para administrar gimnasios en todo el país.
+                                <br/>
+                                Inicia sesion o solicita una cuenta.
+                            </p>
+
+                        </div>
+                        <input className="form-control mb-3" ref="username" placeholder="username = admin" />
+                        <input className="form-control mb-3" ref="password" placeholder="password = password" />
+                        <button onClick={this.botonClick} className="w-100 btn btn-primary mx-auto mb-2">Login</button>
+                        <a href="#"><small>Olvidaste tu Contraseña?</small></a>
+                    </div>
+                </div>
             </div>
         );
     }

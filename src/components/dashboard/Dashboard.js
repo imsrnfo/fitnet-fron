@@ -11,29 +11,21 @@ class Dashboard extends Component{
     constructor(props) {
         super(props);
         let authToken = localStorage.getItem("JWT");
-        let { history } = this.props;
-        //let { state } = this.state;
-
         if (authToken === null) {
             axios.defaults.headers.common.Authorization = null;
             this.props.history.push(`/login`);
         } else {
-
             axios.defaults.headers.common.Authorization = `Bearer ${authToken}`;
-            axios.get("http://localhost:8080/admins", {} ).then(function(response) {
-                //state = { ocultarLoading: true };
-            }).catch(function(error) {
-                //state = { ocultarLoading: false };
-                history.push(`/login`);
-            });
         }
-
-
     }
 
     componentDidMount() {
-        window.ocultarLoading();
-        //if (this.state.ocultarLoading == true) window.ocultarLoading();
+        let { history } = this.props;
+        axios.get("http://localhost:8080/admins", {} ).then(function(response) {
+            window.ocultarLoading();
+        }).catch(function(error) {
+            history.push(`/login`);
+        });
     }
 
     render(){
