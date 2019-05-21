@@ -4,25 +4,15 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Sidebar from './sidebar/Sidebar'
 import Header from './header/Header'
 import Home from './content/home/Home'
-import axios from 'axios';
+import {httpGet} from '../../util/HttpRequest'
 
 class Dashboard extends Component{
 
-    constructor(props) {
-        super(props);
-        let authToken = localStorage.getItem("JWT");
-        if (authToken === null) {
-            axios.defaults.headers.common.Authorization = null;
-            this.props.history.push(`/login`);
-        } else {
-            axios.defaults.headers.common.Authorization = `Bearer ${authToken}`;
-        }
-    }
-
     componentDidMount() {
         let { history } = this.props;
-        axios.get("http://localhost:8080/admins", {} ).then(function(response) {
-            window.ocultarLoading();
+        httpGet('/admins').then(
+        function(response) {
+           window.ocultarLoading();
         }).catch(function(error) {
             history.push(`/login`);
         });

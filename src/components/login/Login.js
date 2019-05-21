@@ -3,51 +3,30 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import './css/login.css'
 import Imagen from './img/gym-icon.png';
+import {login} from '../../util/HttpRequest'
 
 class Login extends Component{
 
     constructor(props) {
         super(props);
-
-        this.botonClick = this.botonClick.bind(this);
+        this.botonLoginClick = this.botonLoginClick.bind(this);
     }
 
-    botonClick(event){
-        var session_url = 'http://localhost:8081/oauth/token';
-        var uname = 'USER_CLIENT_APP';
-        var pass = 'password';
-
-        var bodyFormData = new FormData();
-        bodyFormData.set('username', this.refs.username.value);
-        bodyFormData.set('password', this.refs.password.value);
-        bodyFormData.set('grant_type', 'password');
-
+    botonLoginClick(event){
         let { history } = this.props;
-
-        axios.post(session_url, bodyFormData, {
-            auth: {
-                username: uname,
-                password: pass
-            }
-        }).then(function(response) {
-            console.log(response.data.access_token);
-            alert(response.data.access_token);
-
-            localStorage.setItem('JWT', response.data.access_token);
+        login(this.refs.username.value,this.refs.password.value).then(
+        function(response) {
             history.push(`/dashboard`);
         }).catch(function(error) {
-            console.log(error);
-            alert("Error de Autenticacion");
+           alert("Error de Autenticacion");
         });
-
-
     }
 
     render(){
         return(
             <div className="center-div pb-5">
                 <div className="text-center row">
-                    <div className="col-md-8 mx-auto">
+                    <div className="col-md-8 mx-auto fade-in">
                         <div className="mb-3">
                             <img alt="image" className="imagen m-b-md" src={Imagen}/>
                         </div>
@@ -62,7 +41,7 @@ class Login extends Component{
                         </div>
                         <input className="form-control mb-3" ref="username" placeholder="username = admin" />
                         <input className="form-control mb-3" ref="password" placeholder="password = password" />
-                        <button onClick={this.botonClick} className="w-100 btn btn-primary mx-auto mb-2">Login</button>
+                        <button onClick={this.botonLoginClick} className="w-100 btn btn-primary mx-auto mb-2">Login</button>
                         <a href="#"><small>Olvidaste tu Contraseña?</small></a>
                     </div>
                 </div>
