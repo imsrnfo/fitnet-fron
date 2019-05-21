@@ -7,14 +7,14 @@ import NotFound from './components/error404/NotFound'
 
 function App() {
   return (
-  <Router>
-        <Switch>
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/login" component={Login} />
-            <Route path="/dashboard" component={Dashboard} />
-            <Route component={NotFound} />
-        </Switch>
-  </Router>
+      <Router>
+            <Switch>
+                <Route exact path="/" component={Landing} />
+                <Route exact path="/login" component={Login} />
+                <Route path="/dashboard" component={Dashboard} />
+                <Route component={NotFound} />
+            </Switch>
+      </Router>
   );
 }
 

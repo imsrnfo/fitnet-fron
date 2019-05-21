@@ -1,7 +1,19 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
+import { Link } from "react-router-dom";
 
 class Header extends Component{
+
+    constructor(props) {
+        super(props);
+        this.botonLogoutClick = this.botonLogoutClick.bind(this);
+    }
+
+    botonLogoutClick(event){
+        //localStorage.removeItem("JWT");
+        //axios.defaults.headers.common.Authorization = null;
+    }
 
     render(){
         return(
@@ -21,7 +33,7 @@ class Header extends Component{
                      <a className="nav-link" href="#">Nombre Usuario</a>
                    </li>
                    <li className="nav-item">
-                     <a className="nav-link" href="#">Logout</a>
+                     <Link onClick={this.forceUpdate} to={'/login'} className="nav-link" onClick={this.botonLogoutClick}>Logout</Link>
                    </li>
                  </ul>
                </div>
