@@ -11,8 +11,8 @@ class Header extends Component{
     }
 
     botonLogoutClick(event){
-        //localStorage.removeItem("JWT");
-        //axios.defaults.headers.common.Authorization = null;
+        localStorage.removeItem("JWT");
+        axios.defaults.headers.common.Authorization = null;
     }
 
     render(){

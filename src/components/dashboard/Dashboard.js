@@ -20,27 +20,27 @@ class Dashboard extends Component{
 
     render(){
         return(
-         <Router>
-                <div id="loading-screen">
-                    <div id="loading-spinner">
-                        <div className="lds-ring">
-                            <div className="border-bottom border-primary"></div>
-                            <div className="border-bottom border-primary"></div>
-                            <div className="border-bottom border-primary"></div>
-                            <div className="border-bottom border-primary"></div>
-                        </div>
+         <div>
+            <div id="loading-screen">
+                <div id="loading-spinner">
+                    <div className="lds-ring">
+                        <div className="border-bottom border-primary"></div>
+                        <div className="border-bottom border-primary"></div>
+                        <div className="border-bottom border-primary"></div>
+                        <div className="border-bottom border-primary"></div>
                     </div>
                 </div>
-                 <div className="wrapper">
-                      <Sidebar></Sidebar>
-                      <div id="content">
-                       <Header></Header>
-                        <div id="page-content" className="p-5">
-                             <Route path="/dashboard/home" component={Home} />
-                        </div>
-                      </div>
-                 </div>
-         </Router>
+            </div>
+             <div className="wrapper">
+                  <Sidebar></Sidebar>
+                  <div id="content">
+                   <Header></Header>
+                    <div id="page-content" className="p-5">
+                         <Route path="/dashboard/home" component={Home} />
+                    </div>
+                  </div>
+             </div>
+         </div>
         );
     }
 
