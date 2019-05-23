@@ -4,18 +4,20 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Sidebar from './sidebar/Sidebar'
 import Header from './header/Header'
 import Home from './content/home/Home'
+import Lista from './content/lista/Lista'
 import {httpGet} from '../../util/HttpRequest'
 
 class Dashboard extends Component{
 
     componentDidMount() {
-        let { history } = this.props;
+        window.ocultarLoading();
+        /*let { history } = this.props;
         httpGet('/admins').then(
         function(response) {
            window.ocultarLoading();
         }).catch(function(error) {
             history.push(`/login`);
-        });
+        });*/
     }
 
     render(){
@@ -37,6 +39,7 @@ class Dashboard extends Component{
                    <Header></Header>
                     <div id="page-content" className="p-5">
                          <Route path="/dashboard/home" component={Home} />
+                        <Route path="/dashboard/lista" component={Lista} />
                     </div>
                   </div>
              </div>
