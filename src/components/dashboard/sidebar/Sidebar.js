@@ -37,7 +37,8 @@ class Sidebar extends Component{
                      <i className="fa fa-cogs"></i>Gestionar
                    </a>
                    <ul className="collapse list-unstyled" id="gestionarSubmenu">
-                     <li><Link to="/dashboard/home"><i className="fa fa-cogs"></i>Home</Link></li>
+                     <li><Link to="/dashboard/home">Formulario</Link></li>
+                     <li><Link to="/dashboard/lista">Lista</Link></li>
                      <li><a href="#"><i className="fa fa-cogs"></i>Socios</a></li>
                      <li><a href="#">Panel de Acceso</a></li>
                      <li><a href="#">Cobros</a></li>
@@ -77,7 +78,7 @@ class Sidebar extends Component{
                      <li><a href="#">Usuarios</a></li>
                      <li><a href="#">Actividades</a></li>
                      <li><a href="#">Conceptos</a></li>
-                     <li><a href="#">Articulos</a></li>
+                     <li><Link to="/dashboard/articulos/lista">Articulos</Link></li>
                    </ul>
                  </li>
                  <li>

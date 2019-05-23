@@ -5,6 +5,8 @@ import Sidebar from './sidebar/Sidebar'
 import Header from './header/Header'
 import Home from './content/home/Home'
 import Lista from './content/lista/Lista'
+import ListaArticulos from './content/articulos/Lista'
+import FormularioArticulos from './content/articulos/Formulario'
 import {httpGet} from '../../util/HttpRequest'
 
 class Dashboard extends Component{
@@ -38,8 +40,10 @@ class Dashboard extends Component{
                   <div id="content">
                    <Header></Header>
                     <div id="page-content" className="p-5">
-                         <Route path="/dashboard/home" component={Home} />
+                        <Route path="/dashboard/home" component={Home} />
                         <Route path="/dashboard/lista" component={Lista} />
+                        <Route path="/dashboard/articulos/lista" component={ListaArticulos} />
+                        <Route path="/dashboard/articulos/crear" component={FormularioArticulos} />
                     </div>
                   </div>
              </div>

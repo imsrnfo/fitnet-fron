@@ -13,6 +13,7 @@ class Login extends Component{
     }
 
     botonLoginClick(event){
+        event.preventDefault();
         let { history } = this.props;
         login(this.refs.username.value,this.refs.password.value).then(
         function(response) {
@@ -39,9 +40,11 @@ class Login extends Component{
                             </p>
 
                         </div>
-                        <input className="form-control mb-3" ref="username" placeholder="username = admin" />
-                        <input className="form-control mb-3" ref="password" placeholder="password = password" />
-                        <button onClick={this.botonLoginClick} className="w-100 btn btn-primary mx-auto mb-2">Login</button>
+                        <form onSubmit={this.botonLoginClick}>
+                            <input className="form-control mb-3" ref="username" placeholder="username = admin" />
+                            <input className="form-control mb-3" ref="password" placeholder="password = password" />
+                            <button className="w-100 btn btn-primary mx-auto mb-2">Login</button>
+                        </form>
                         <a href="#"><small>Olvidaste tu Contraseña?</small></a>
                     </div>
                 </div>
