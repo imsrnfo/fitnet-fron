@@ -10,7 +10,7 @@ export function httpGet(url) {
             reject(Error("Local storage jwt es nulo"));
         } else {
             axios.defaults.headers.common.Authorization = `Bearer ${authToken}`;
-            axios.get(dominioResourceServer+"/admins", {} ).then(function(response) {
+            axios.get(dominioResourceServer+url, {} ).then(function(response) {
                 resolve(response);
             }).catch(function(error) {
                reject(error);

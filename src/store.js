@@ -9,7 +9,17 @@ const reducer = (state,action) =>{
         }
     }
 
+    if (action.type === "SET_ARTICULOS"){
+            return{
+                ...state,
+                articulos: action.articulos
+            }
+        }
+
     return state;
 }
 
-export default createStore(reducer,{elementos: []});
+export default createStore(reducer,{
+    elementos: [],
+    articulos: []
+});

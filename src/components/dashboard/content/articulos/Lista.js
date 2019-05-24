@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import store from '../../../../store';
+import {httpGet} from '../../../../util/HttpRequest'
 
 class ListaArticulos extends Component{
 
@@ -8,20 +9,27 @@ class ListaArticulos extends Component{
         super();
         this.btnNuevoClick = this.btnNuevoClick.bind(this);
 
+        this.state = {
+            articulos : []
+        }
+
         store.subscribe(()=>{
            this.setState({
-               elementos:store.getState().elementos
+               articulos:store.getState().articulos
            });
         });
 
-        this.state = {
-            elementos : [
-                {id : 1, nombre : "nacho", apellido: "silva"},
-                {id : 2, nombre : "diego", apellido: "silva"},
-            ]
-        }
-    }
+        httpGet('/articulos').then(
+        function(response) {
+            store.dispatch({
+               type: "SET_ARTICULOS",
+               articulos: response.data
+           });
+        }).catch(function(error) {
+                alert(error);
+        });
 
+    }
 
     btnNuevoClick(event){
         this.props.history.push(`/dashboard/articulos/crear`);
@@ -60,12 +68,12 @@ class ListaArticulos extends Component{
                                     </thead>
                                     <tbody>
 
-                                    {this.state.elementos.map(elemento =>
+                                    {this.state.articulos.map(articulo =>
 
                                         <tr>
-                                            <th scope="row">{elemento.id}</th>
-                                            <td>{elemento.nombre}</td>
-                                            <td>{elemento.apellido}</td>
+                                            <th scope="row">{articulo.codigo}</th>
+                                            <td>{articulo.nombre}</td>
+                                            <td>{articulo.precioVenta}</td>
                                             <td></td>
                                         </tr>
 
