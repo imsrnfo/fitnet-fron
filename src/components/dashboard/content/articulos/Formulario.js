@@ -45,19 +45,7 @@ class FormularioArticulos extends Component{
                           <div className="card-body">
                             <div className="container-fluid">
                               <div className="row">
-                                <div className="col-4 text-center">
-                                  <div className="row">
-                                    <div className="mx-auto m-5 col-xl-6 col-lg-10 col-md-10 col-sm-12" >
-                                      <div className="FlexEmbed FlexEmbed-ratio">
-                                        <div className="UserImage FlexEmbed-content" style={ sectionStyle } ></div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div className="row">
-                                    <button type="button" className="btn btn-secondary mx-auto">Subir archivo</button>
-                                  </div>
-                                </div>
-                                <div className="col-8">
+                                <div className="col-12">
                                   <form className="was-validated">
                                     <div className="form-row">
                                       <div className="form-group col-md-6">
@@ -100,25 +88,11 @@ class FormularioArticulos extends Component{
                                         </div>
                                       </div>
                                     </div>
-                                    <div className="form-group">
-                                      <div className="form-check">
-                                        <input className="form-check-input" type="checkbox" id="gridCheck" />
-                                        <label className="form-check-label" for="gridCheck">
-                                          Check me out
-                                        </label>
-                                      </div>
-                                    </div>
-                                    <div className="form-group">
-                                      <label for="inputFnac">Fecha Nacimiento</label>
-                                      <input type="text" className=" datepicker form-control" id="inputFnac" />
-                                    </div>
-
                                     <div className="custom-control custom-checkbox mb-3">
                                       <input type="checkbox" className="custom-control-input" id="customControlValidation1" required />
-                                      <label className="custom-control-label" for="customControlValidation1">Check this custom checkbox</label>
-                                      <div className="invalid-feedback">Example invalid feedback text</div>
+                                      <label className="custom-control-label" for="customControlValidation1">Activo</label>
+                                      <div className="invalid-feedback">El Articulo esta inactivo</div>
                                     </div>
-
                                     <button type="submit" className="btn btn-primary float-right ml-3">Aceptar</button>
                                     <button type="submit" className="btn btn-secondary float-right">Cancelar</button>
                                   </form>
