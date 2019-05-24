@@ -46,55 +46,47 @@ class FormularioArticulos extends Component{
                             <div className="container-fluid">
                               <div className="row">
                                 <div className="col-12">
-                                  <form className="was-validated">
+                                  <form>
+
                                     <div className="form-row">
                                       <div className="form-group col-md-6">
-                                        <label for="inputEmail4">Email</label>
-                                        <input type="email" className="form-control" id="inputEmail4" placeholder="Email"/>
+                                        <label for="inputCodigo">Codigo</label>
+                                        <input className="form-control" id="inputCodigo" />
                                       </div>
                                       <div className="form-group col-md-6">
-                                        <label for="inputPassword4">Password</label>
-                                        <input type="password" className="form-control" id="inputPassword4" placeholder="Password"/>
+                                        <label for="inputNombre">Nombre</label>
+                                        <input className="form-control" id="inputNombre" />
                                       </div>
                                     </div>
-                                    <div className="form-group">
-                                      <label for="inputAddress">Address</label>
-                                      <input type="text" className="form-control" id="inputAddress" placeholder="1234 Main St"/>
-                                    </div>
-                                    <div className="form-group">
-                                      <label for="inputAddress2">Address 2</label>
-                                      <input type="text" className="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor"/>
-                                    </div>
+
                                     <div className="form-row">
-                                      <div className="col-md-6 mb-3">
-                                        <label for="validationServer03">City</label>
-                                        <input type="text" className="form-control is-invalid" id="validationServer03" placeholder="City" required />
-                                        <div className="invalid-feedback">
-                                          Please provide a valid city.
-                                        </div>
+                                      <div className="form-group col-md-6">
+                                        <label for="inputPrecioCosto">Precio de Costo</label>
+                                        <input className="form-control" id="PrecioCosto" />
                                       </div>
-                                      <div className="col-md-3 mb-3">
-                                        <label for="validationServer04">State</label>
-                                        <input type="text" className="form-control is-invalid" id="validationServer04" placeholder="State" required />
-                                        <div className="invalid-feedback">
-                                          Please provide a valid state.
-                                        </div>
-                                      </div>
-                                      <div className="col-md-3 mb-3">
-                                        <label for="validationServer05">Zip</label>
-                                        <input type="text" className="form-control is-invalid" id="validationServer05" placeholder="Zip" required />
-                                        <div className="invalid-feedback">
-                                          Please provide a valid zip.
-                                        </div>
+                                      <div className="form-group col-md-6">
+                                        <label for="inputPrecioVenta">Precio de Venta</label>
+                                        <input className="form-control" id="PrecioVenta" />
                                       </div>
                                     </div>
-                                    <div className="custom-control custom-checkbox mb-3">
-                                      <input type="checkbox" className="custom-control-input" id="customControlValidation1" required />
-                                      <label className="custom-control-label" for="customControlValidation1">Activo</label>
-                                      <div className="invalid-feedback">El Articulo esta inactivo</div>
+
+                                    <div className="form-row">
+                                      <div className="form-group col-md-6">
+                                        <div className="custom-control custom-checkbox mb-3">
+                                          <input type="checkbox" className="custom-control-input" id="customControlValidation1" required />
+                                          <label className="custom-control-label" for="customControlValidation1">Maneja Stock</label>
+                                        </div>
+                                      </div>
+                                      <div className="form-group col-md-6">
+                                        <label for="inputPrecioVenta">Precio de Venta</label>
+                                        <input className="form-control" id="PrecioVenta" />
+                                      </div>
                                     </div>
-                                    <button type="submit" className="btn btn-primary float-right ml-3">Aceptar</button>
-                                    <button type="submit" className="btn btn-secondary float-right">Cancelar</button>
+
+                                    <div class="mt-3">
+                                        <button type="submit" className="btn btn-primary float-right ml-3">Aceptar</button>
+                                        <button type="submit" className="btn btn-secondary float-right">Cancelar</button>
+                                    </div>
                                   </form>
                                 </div>
                               </div>
