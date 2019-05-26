@@ -19,6 +19,24 @@ export function httpGet(url) {
   });
 }
 
+export function httpPost(url,data) {
+    return new Promise(function(resolve, reject) {
+        let authToken = localStorage.getItem("JWT");
+        if (authToken === null) {
+            axios.defaults.headers.common.Authorization = null;
+            reject(Error("Local storage jwt es nulo"));
+        } else {
+            axios.defaults.headers.common.Authorization = `Bearer ${authToken}`;
+            axios.post(dominioResourceServer+url, data).then(function(response) {
+                resolve(response);
+            }).catch(function(error) {
+                console.log(error);
+                reject(error);
+            });
+        }
+    });
+}
+
 let dominioAuthenticationServer = "http://localhost:8081";
 
 export function login(username, password) {

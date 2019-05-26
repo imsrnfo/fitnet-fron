@@ -9,7 +9,14 @@ import ListaArticulos from './content/articulos/Lista'
 import FormularioArticulos from './content/articulos/Formulario'
 import {httpGet} from '../../util/HttpRequest'
 
+import axios from 'axios';
+
 class Dashboard extends Component{
+
+    constructor(props){
+        super(props);
+        this.state = {stylePath: 'https://bootswatch.com/4/cerulean/bootstrap.min.css'};
+    }
 
     componentDidMount() {
         window.ocultarLoading();
@@ -20,11 +27,13 @@ class Dashboard extends Component{
         }).catch(function(error) {
             history.push(`/login`);
         });*/
+       // this.setState({stylePath: 'https://bootswatch.com/4/cyborg/bootstrap.min.css'});
     }
 
     render(){
         return(
          <div>
+             <link rel="stylesheet" type="text/css" href={this.state.stylePath}/>
             <div id="loading-screen">
                 <div id="loading-spinner">
                     <div className="lds-ring">

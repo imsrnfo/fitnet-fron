@@ -99,8 +99,8 @@ class ListaArticulos extends Component{
                                         </li>
                                     </ul>
                                 </nav>
-                                <button type="submit" className="btn btn-primary float-right ml-3" onClick={this.btnNuevoClick} >Nuevo</button>
-                                <button type="submit" className="btn btn-secondary float-right">Atras</button>
+                                <button className="btn btn-primary float-right ml-3" onClick={this.btnNuevoClick} >Nuevo</button>
+                                <button className="btn btn-secondary float-right">Atras</button>
                             </div>
                         </div>
                     </div>
