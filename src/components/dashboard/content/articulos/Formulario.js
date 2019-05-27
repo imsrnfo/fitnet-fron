@@ -59,6 +59,15 @@ class FormularioArticulos extends Component{
         this.props.history.push(`/dashboard/articulos/lista`);
     }
 
+    cargarImagen(event){
+        let files = event.target.files;
+        let reader = new FileReader();
+        reader.readAsDataURL(files[0]);
+        reader.onload=(event)=>{
+            console.warn("imagen: " , event.target.result);
+        }
+    }
+
     render(){
         return(
             <div className="container-fluid">
@@ -127,6 +136,8 @@ class FormularioArticulos extends Component{
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <input type="file" name="file" onChange={(event)=>this.cargarImagen(event)} />
 
                                                 <div class="mt-3">
                                                     <button type="submit" className="btn btn-primary float-right ml-3" >Aceptar</button>
