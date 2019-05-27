@@ -14,21 +14,33 @@ class FormularioArticulos extends Component{
         super();
         this.btnCancelar = this.btnCancelar.bind(this);
         this.formSubmit = this.formSubmit.bind(this);
+
+        this.state = {
+            codigo:'',
+            nombre: '',
+            precioCosto:'',
+            precioVenta:'',
+            manejarStock: false,
+            stockActual: 0,
+            activo: false
+        };
+
     }
 
     formSubmit(event){
         event.preventDefault();
         let { history } = this.props;
-        httpPost('/articulos/crear',{}).then(
+        httpPost('/articulos/crear',this.state).then(
             function(response) {
-                alert(response);
+                history.push(`/dashboard/articulos/lista`);
             }).catch(function(error) {
             alert(error);
         });
     }
 
     btnCancelar(event){
-        this.props.history.push(`/dashboard/articulos`);
+        event.preventDefault();
+        this.props.history.push(`/dashboard/articulos/lista`);
     }
 
     render(){
@@ -50,42 +62,42 @@ class FormularioArticulos extends Component{
                                                 <div className="form-row">
                                                     <div className="form-group col-md-6">
                                                         <label for="inputCodigo">Codigo</label>
-                                                        <input className="form-control" id="inputCodigo" />
+                                                        <input className="form-control" id="inputCodigo" value={this.state.codigo} onChange={event=>this.setState({codigo:event.target.value})}/>
                                                     </div>
                                                     <div className="form-group col-md-6">
                                                         <label for="inputNombre">Nombre</label>
-                                                        <input className="form-control" id="inputNombre" />
+                                                        <input className="form-control" id="inputNombre" value={this.state.nombre} onChange={event=>this.setState({nombre:event.target.value})}/>
                                                     </div>
                                                 </div>
 
                                                 <div className="form-row">
                                                     <div className="form-group col-md-6">
                                                         <label for="inputPrecioCosto">Precio de Costo</label>
-                                                        <input className="form-control" id="inputPrecioCosto" />
+                                                        <input className="form-control" id="inputPrecioCosto" value={this.state.precioCosto} onChange={event=>this.setState({precioCosto:event.target.value})}/>
                                                     </div>
                                                     <div className="form-group col-md-6">
                                                         <label for="inputPrecioVenta">Precio de Venta</label>
-                                                        <input className="form-control" id="inputPrecioVenta" />
+                                                        <input className="form-control" id="inputPrecioVenta" value={this.state.precioVenta} onChange={event=>this.setState({precioVenta:event.target.value})}/>
                                                     </div>
                                                 </div>
 
                                                 <div className="form-row">
                                                     <div className="form-group col-md-6">
                                                         <div className="custom-control custom-checkbox mb-3">
-                                                            <input type="checkbox" className="custom-control-input" id="inputManejaStock" required />
-                                                            <label className="custom-control-label" for="inputManejaStock">Maneja Stock</label>
+                                                            <input type="checkbox" className="custom-control-input" id="inputmanejarStock" value={this.state.manejarStock} onChange={event=>this.setState({manejarStock:event.target.checked})}/>
+                                                            <label className="custom-control-label" for="inputmanejarStock">Maneja Stock</label>
                                                         </div>
                                                     </div>
                                                     <div className="form-group col-md-6">
                                                         <label for="inputStockActual">Stock Actual</label>
-                                                        <input className="form-control" id="inputStockActual" />
+                                                        <input className="form-control" id="inputStockActual" value={this.state.stockActual} onChange={event=>this.setState({stockActual:event.target.value})}/>
                                                     </div>
                                                 </div>
 
                                                 <div className="form-row">
                                                     <div className="form-group col-md-6">
                                                         <div className="custom-control custom-checkbox mb-3">
-                                                            <input type="checkbox" className="custom-control-input" id="inputActivo" required />
+                                                            <input type="checkbox" className="custom-control-input" id="inputActivo" value={this.state.activo} onChange={event=>this.setState({activo:event.target.checked})}/>
                                                             <label className="custom-control-label" for="inputActivo">Activo</label>
                                                         </div>
                                                     </div>

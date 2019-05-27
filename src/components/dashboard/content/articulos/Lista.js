@@ -11,7 +11,7 @@ class ListaArticulos extends Component{
 
         this.state = {
             articulos : []
-        }
+        };
 
         store.subscribe(()=>{
            this.setState({
