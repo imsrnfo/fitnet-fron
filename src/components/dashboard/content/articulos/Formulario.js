@@ -22,20 +22,36 @@ class FormularioArticulos extends Component{
             precioVenta:'',
             manejarStock: false,
             stockActual: 0,
-            activo: false
+            activo: false,
+            codigoInvalidoMensaje:'',
+            nombreInvalidoMensaje:'',
+            precioCostoInvalidoMensaje:'',
+            precioVentaInvalidoMensaje:'',
+            stockActualInvalidoMensaje:'',
+            formSubmited:false
         };
 
     }
 
     formSubmit(event){
         event.preventDefault();
-        let { history } = this.props;
-        httpPost('/articulos/crear',this.state).then(
-            function(response) {
-                history.push(`/dashboard/articulos/lista`);
-            }).catch(function(error) {
-            alert(error);
-        });
+        this.setState({formSubmited : true});
+        this.setState({codigoInvalidoMensaje : 'Campo invalido'});
+        if (
+            this.state.codigoInvalidoMensaje.lenght==0 &&
+            this.state.nombreInvalidoMensaje.lenght==0 &&
+            this.state.precioCostoInvalidoMensaje.lenght==0 &&
+            this.state.precioVentaInvalidoMensaje.lenght==0 &&
+            this.state.stockActualInvalidoMensaje.lenght==0
+        ){
+            let { history } = this.props;
+            httpPost('/articulos/crear',this.state).then(
+                function(response) {
+                    history.push(`/dashboard/articulos/lista`);
+                }).catch(function(error) {
+                alert(error);
+            });
+        }
     }
 
     btnCancelar(event){
@@ -62,7 +78,16 @@ class FormularioArticulos extends Component{
                                                 <div className="form-row">
                                                     <div className="form-group col-md-6">
                                                         <label for="inputCodigo">Codigo</label>
-                                                        <input className="form-control" id="inputCodigo" value={this.state.codigo} onChange={event=>this.setState({codigo:event.target.value})}/>
+                                                        <input
+                                                            id="inputCodigo"
+                                                            value={this.state.codigo}
+                                                            className={" form-control "
+                                                                + (this.state.formSubmited && this.state.codigoInvalidoMensaje.length>0 ? ' is-invalid ' : '')
+                                                                + (this.state.formSubmited && this.state.codigoInvalidoMensaje.length===0 ? ' is-valid ' : '')
+                                                            }
+                                                            onChange={event=>this.setState({codigo:event.target.value})}
+                                                        />
+                                                        {this.state.codigoInvalidoMensaje.length>0 &&  <div className="invalid-feedback"> {this.state.codigoInvalidoMensaje} </div>}
                                                     </div>
                                                     <div className="form-group col-md-6">
                                                         <label for="inputNombre">Nombre</label>
