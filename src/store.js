@@ -10,9 +10,16 @@ const reducer = (state,action) =>{
     }
 
     if (action.type === "SET_ARTICULOS"){
+        return{
+            ...state,
+            articulos: action.articulos
+        }
+    }
+
+    if (action.type === "SET_USUARIOS"){
             return{
                 ...state,
-                articulos: action.articulos
+                usuarios: action.usuarios
             }
         }
 
@@ -21,5 +28,6 @@ const reducer = (state,action) =>{
 
 export default createStore(reducer,{
     elementos: [],
-    articulos: []
+    articulos: [],
+    usuarios: []
 });
