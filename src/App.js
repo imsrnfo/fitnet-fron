@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import Landing from './components/landing/Landing'
-import Login from './components/login/Login'
-import Dashboard from './components/dashboard/Dashboard'
-import NotFound from './components/error404/NotFound'
+import Landing from './views/landing/Landing'
+import Login from './views/login/Login'
+import Dashboard from './views/dashboard/Dashboard'
+import NotFound from './views/error404/NotFound'
 
 function App() {
   return (

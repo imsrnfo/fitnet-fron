@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Imagen from './img/fitnet-icon.png';
 import store from '../../../../store';
 import {httpPost} from "../../../../util/HttpRequest";
+import TextInput from '../../../../components/TextInput';
 
 var sectionStyle = {
     backgroundImage:  `url(${Imagen})`
@@ -14,6 +15,7 @@ class FormularioArticulos extends Component{
         super();
         this.btnCancelar = this.btnCancelar.bind(this);
         this.formSubmit = this.formSubmit.bind(this);
+        this.validarFormulario = this.validarFormulario.bind(this)
 
         this.state = {
             codigo:'',
@@ -28,7 +30,8 @@ class FormularioArticulos extends Component{
             precioCostoInvalidoMensaje:'',
             precioVentaInvalidoMensaje:'',
             stockActualInvalidoMensaje:'',
-            formSubmited:false
+            formSubmited:false,
+            formValid: false
         };
 
     }
@@ -68,6 +71,12 @@ class FormularioArticulos extends Component{
         }
     }
 
+    validarFormulario(esValido) {
+        this.setState({
+          formValid: esValido
+        })
+      }
+
     render(){
         return(
             <div className="container-fluid">
@@ -83,6 +92,13 @@ class FormularioArticulos extends Component{
                                     <div className="row">
                                         <div className="col-12">
                                             <form onSubmit={this.formSubmit}>
+
+
+                                                <div className="form-row">
+                                                    <div className="col-md-6">
+                                                       <TextInput validarFormulario={this.validarFormulario} label="Texto" validaciones={{'min-lenght' : 3, 'max-lenght' : 7, 'basicas': ['not-null','email']}}/>
+                                                    </div>
+                                                </div>
 
                                                 <div className="form-row">
                                                     <div className="form-group col-md-6">
@@ -140,7 +156,7 @@ class FormularioArticulos extends Component{
                                                 <input type="file" name="file" onChange={(event)=>this.cargarImagen(event)} />
 
                                                 <div class="mt-3">
-                                                    <button type="submit" className="btn btn-primary float-right ml-3" >Aceptar</button>
+                                                    <button type="submit" className="btn btn-primary float-right ml-3" disabled={!this.state.formValid} >Aceptar</button>
                                                     <button className="btn btn-secondary float-right" onClick={this.btnCancelar} >Cancelar</button>
                                                 </div>
                                             </form>
