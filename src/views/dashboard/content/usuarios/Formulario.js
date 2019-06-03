@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import store from '../../../../store';
 import {httpPost} from "../../../../util/HttpRequest";
 import TextInput from '../../../../components/TextInput';
+import ImageInput from '../../../../components/ImageInput';
 
 class FormularioArticulos extends Component{
 
@@ -26,7 +27,10 @@ class FormularioArticulos extends Component{
                       valor: '',
                       valido: false
                   },
-                imagen:'',
+                imagen:{
+                     valor: '',
+                     valido: false
+                 }
             },
             formularioValido:false
         };
@@ -63,7 +67,7 @@ class FormularioArticulos extends Component{
     onInputChange(campo, valor, valido) {
         let nuevoCampo = {valido: valido, valor: valor};
         this.setState({ objeto: { ...this.state.objeto, [campo]: nuevoCampo}}, function(){
-                var formValido = true;
+               var formValido = true;
                var estado = this.state;
                Object.keys(estado.objeto).map(function (key) {
                    if (estado.objeto[key].valido!==undefined) formValido = formValido && estado.objeto[key].valido;
@@ -103,8 +107,7 @@ class FormularioArticulos extends Component{
                                                         <TextInput campo="email" onInputChange={this.onInputChange} label="Email" validaciones={{'min-lenght' : 3, 'max-lenght' : 7, 'basicas': ['not-null','email']}}/>
                                                     </div>
                                                     <div className="form-group col-md-6">
-                                                        <label for="inputImagen">Imagen</label>
-                                                        <input className="form-control" id="inputImagen" type="file" name="file" onChange={(event)=>this.cargarImagen(event)}/>
+                                                        <ImageInput campo="imagen" onInputChange={this.onInputChange} label="Imagen" validaciones={{'basicas': ['not-null']}}/>
                                                     </div>
                                                 </div>
 
