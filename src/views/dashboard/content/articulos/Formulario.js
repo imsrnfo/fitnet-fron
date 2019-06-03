@@ -15,7 +15,7 @@ class FormularioArticulos extends Component{
         super();
         this.btnCancelar = this.btnCancelar.bind(this);
         this.formSubmit = this.formSubmit.bind(this);
-        this.validarFormulario = this.validarFormulario.bind(this)
+        this.onInputChange = this.onInputChange.bind(this)
 
         this.state = {
             texto:{
@@ -75,7 +75,7 @@ class FormularioArticulos extends Component{
         }
     }
 
-    validarFormulario(campo, valor, valido) {
+    onInputChange(campo, valor, valido) {
         let nuevoCampo = {valido: valido, valor: valor};
         this.setState({
           [campo]: nuevoCampo
@@ -101,7 +101,7 @@ class FormularioArticulos extends Component{
 
                                                 <div className="form-row">
                                                     <div className="col-md-6">
-                                                       <TextInput campo="texto" validarFormulario={this.validarFormulario} label="Texto" validaciones={{'min-lenght' : 3, 'max-lenght' : 7, 'basicas': ['not-null','email']}}/>
+                                                       <TextInput campo="texto" onInputChange={this.onInputChange} label="Texto" validaciones={{'min-lenght' : 3, 'max-lenght' : 7, 'basicas': ['not-null','email']}}/>
                                                     </div>
                                                 </div>
 

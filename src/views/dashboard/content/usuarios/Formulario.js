@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import store from '../../../../store';
 import {httpPost} from "../../../../util/HttpRequest";
+import TextInput from '../../../../components/TextInput';
 
 class FormularioArticulos extends Component{
 
@@ -9,43 +10,38 @@ class FormularioArticulos extends Component{
         super();
         this.btnCancelar = this.btnCancelar.bind(this);
         this.formSubmit = this.formSubmit.bind(this);
+        this.onInputChange = this.onInputChange.bind(this)
 
         this.state = {
-
-            username:'',
-            password: '',
-            email:'',
-            imagen:'',
-
-            usernameInvalidoMensaje:'',
-            passwordInvalidoMensaje:'',
-            emailInvalidoMensaje:'',
-            imagenInvalidoMensaje:'',
-
-            formSubmited:false
+            objeto : {
+                username:{
+                     valor: '',
+                     valido: false
+                 },
+                password: {
+                      valor: '',
+                      valido: false
+                  },
+                email:{
+                      valor: '',
+                      valido: false
+                  },
+                imagen:'',
+            },
+            formularioValido:false
         };
 
     }
 
     formSubmit(event){
         event.preventDefault();
-        this.setState({formSubmited : true});
-        this.setState({codigoInvalidoMensaje : 'Campo invalido'});
-        if (
-            this.state.codigoInvalidoMensaje.lenght==0 &&
-            this.state.nombreInvalidoMensaje.lenght==0 &&
-            this.state.precioCostoInvalidoMensaje.lenght==0 &&
-            this.state.precioVentaInvalidoMensaje.lenght==0 &&
-            this.state.stockActualInvalidoMensaje.lenght==0
-        ){
-            let { history } = this.props;
-            httpPost('/usuarios/crear',this.state).then(
-                function(response) {
-                    history.push(`/dashboard/usuarios/lista`);
-                }).catch(function(error) {
-                alert(error);
-            });
-        }
+        let { history } = this.props;
+        httpPost('/usuarios/crear',this.state).then(
+            function(response) {
+                history.push(`/dashboard/usuarios/lista`);
+            }).catch(function(error) {
+            alert(error);
+        });
     }
 
     btnCancelar(event){
@@ -60,9 +56,22 @@ class FormularioArticulos extends Component{
         reader.readAsDataURL(files[0]);
         reader.onload=(event)=>{
             console.warn("imagen: " , event.target.result);
-            componente.setState({imagen : event.target.result});
+            componente.setState({ objeto: { ...this.state.objeto, imagen: event.target.result} });
         }
     }
+
+    onInputChange(campo, valor, valido) {
+        let nuevoCampo = {valido: valido, valor: valor};
+        this.setState({ objeto: { ...this.state.objeto, [campo]: nuevoCampo}}, function(){
+                var formValido = true;
+               var estado = this.state;
+               Object.keys(estado.objeto).map(function (key) {
+                   if (estado.objeto[key].valido!==undefined) formValido = formValido && estado.objeto[key].valido;
+               });
+               this.setState({formularioValido : formValido});
+        });
+      }
+
 
     render(){
         return(
@@ -82,19 +91,16 @@ class FormularioArticulos extends Component{
 
                                                 <div className="form-row">
                                                     <div className="form-group col-md-6">
-                                                        <label for="inputUsername">Username</label>
-                                                        <input className="form-control" id="inputUsername" value={this.state.username} onChange={event=>this.setState({username:event.target.value})}/>
+                                                        <TextInput campo="username" onInputChange={this.onInputChange} label="Username" validaciones={{'min-lenght' : 3, 'max-lenght' : 7, 'basicas': ['not-null','email']}}/>
                                                     </div>
                                                     <div className="form-group col-md-6">
-                                                        <label for="inputPassword">Password</label>
-                                                        <input className="form-control" id="inputPassword" value={this.state.password} onChange={event=>this.setState({password:event.target.value})}/>
+                                                        <TextInput campo="password" onInputChange={this.onInputChange} label="Password" validaciones={{'min-lenght' : 3, 'max-lenght' : 7, 'basicas': ['not-null','email']}}/>
                                                     </div>
                                                 </div>
 
                                                 <div className="form-row">
                                                     <div className="form-group col-md-6">
-                                                        <label for="inputEmail">Email</label>
-                                                        <input className="form-control" id="inputEmail" value={this.state.email} onChange={event=>this.setState({email:event.target.value})}/>
+                                                        <TextInput campo="email" onInputChange={this.onInputChange} label="Email" validaciones={{'min-lenght' : 3, 'max-lenght' : 7, 'basicas': ['not-null','email']}}/>
                                                     </div>
                                                     <div className="form-group col-md-6">
                                                         <label for="inputImagen">Imagen</label>
@@ -103,7 +109,7 @@ class FormularioArticulos extends Component{
                                                 </div>
 
                                                 <div class="mt-3">
-                                                    <button type="submit" className="btn btn-primary float-right ml-3" >Aceptar</button>
+                                                    <button type="submit" className="btn btn-primary float-right ml-3" disabled={!this.state.formularioValido}>Aceptar</button>
                                                     <button className="btn btn-secondary float-right" onClick={this.btnCancelar} >Cancelar</button>
                                                 </div>
                                             </form>

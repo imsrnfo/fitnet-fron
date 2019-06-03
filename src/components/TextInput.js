@@ -7,7 +7,7 @@ class TextInput extends React.Component {
         super(props);
         this.state = {
             valor: '',
-            mensajeInvalido: ''
+            mensajeInvalido: undefined
         }
          this.validar = this.validar.bind(this);
     }
@@ -57,12 +57,12 @@ class TextInput extends React.Component {
        if (errores.length>0){
             this.setState({
                    valor:event.target.value,
-                    mensajeInvalido: errores[0]
+                   mensajeInvalido: errores[0]
             });
         }else{
             valido = true;
         }
-        this.props.validarFormulario(this.props.campo,event.target.value,valido);
+        this.props.onInputChange(this.props.campo,event.target.value,valido);
     }
 
     render() {
@@ -74,7 +74,7 @@ class TextInput extends React.Component {
                    value={this.state.valor}
                    className={" form-control "
                        + (this.state.mensajeInvalido!==undefined && this.state.mensajeInvalido.length>0 ? ' is-invalid ' : '')
-                       + (this.state.mensajeInvalido!==undefined && this.state.mensajeInvalido.length===0 && this.state.esValido ? ' is-valid ' : '')
+                       + (this.state.mensajeInvalido!==undefined && this.state.mensajeInvalido.length===0 ? ' is-valid ' : '')
                    }
                    onChange={this.validar}
                />
