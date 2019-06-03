@@ -53,15 +53,16 @@ class TextInput extends React.Component {
             }
         }
 
+        var valido = false;
        if (errores.length>0){
-            this.props.validarFormulario(false);
             this.setState({
                    valor:event.target.value,
                     mensajeInvalido: errores[0]
             });
         }else{
-            this.props.validarFormulario(true);
+            valido = true;
         }
+        this.props.validarFormulario(this.props.campo,event.target.value,valido);
     }
 
     render() {

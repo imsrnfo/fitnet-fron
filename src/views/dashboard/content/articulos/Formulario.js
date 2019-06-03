@@ -18,6 +18,10 @@ class FormularioArticulos extends Component{
         this.validarFormulario = this.validarFormulario.bind(this)
 
         this.state = {
+            texto:{
+                valor: '',
+                valido: false
+            },
             codigo:'',
             nombre: '',
             precioCosto:'',
@@ -71,9 +75,10 @@ class FormularioArticulos extends Component{
         }
     }
 
-    validarFormulario(esValido) {
+    validarFormulario(campo, valor, valido) {
+        let nuevoCampo = {valido: valido, valor: valor};
         this.setState({
-          formValid: esValido
+          [campo]: nuevoCampo
         })
       }
 
@@ -96,7 +101,7 @@ class FormularioArticulos extends Component{
 
                                                 <div className="form-row">
                                                     <div className="col-md-6">
-                                                       <TextInput validarFormulario={this.validarFormulario} label="Texto" validaciones={{'min-lenght' : 3, 'max-lenght' : 7, 'basicas': ['not-null','email']}}/>
+                                                       <TextInput campo="texto" validarFormulario={this.validarFormulario} label="Texto" validaciones={{'min-lenght' : 3, 'max-lenght' : 7, 'basicas': ['not-null','email']}}/>
                                                     </div>
                                                 </div>
 
@@ -156,7 +161,7 @@ class FormularioArticulos extends Component{
                                                 <input type="file" name="file" onChange={(event)=>this.cargarImagen(event)} />
 
                                                 <div class="mt-3">
-                                                    <button type="submit" className="btn btn-primary float-right ml-3" disabled={!this.state.formValid} >Aceptar</button>
+                                                    <button type="submit" className="btn btn-primary float-right ml-3" disabled={!this.state.texto.valido} >Aceptar</button>
                                                     <button className="btn btn-secondary float-right" onClick={this.btnCancelar} >Cancelar</button>
                                                 </div>
                                             </form>
