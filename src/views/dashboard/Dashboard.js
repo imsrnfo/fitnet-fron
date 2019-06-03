@@ -17,7 +17,9 @@ class Dashboard extends Component{
 
     constructor(props){
         super(props);
-        this.state = {stylePath: 'https://bootswatch.com/4/cerulean/bootstrap.min.css'};
+        this.state = {
+            stylePath: undefined //'https://bootswatch.com/4/cerulean/bootstrap.min.css'
+        };
     }
 
     componentDidMount() {
@@ -47,7 +49,7 @@ class Dashboard extends Component{
                 </div>
             </div>
              <div className="wrapper">
-                  <Sidebar></Sidebar>
+                  <Sidebar customStyle={this.state.stylePath}></Sidebar>
                   <div id="content">
                    <Header></Header>
                     <div id="page-content" className="p-5">

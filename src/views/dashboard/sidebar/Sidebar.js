@@ -7,7 +7,7 @@ class Sidebar extends Component{
     render(){
         return(
             <nav id="sidebar" className="bg-dark text-light">
-               <div className="sidebar-header small">
+               <div className={"small sidebar-header" + (this.props.customStyle===undefined ? ' sidebar-background ' : '')}>
                  <h3>
                    <div className="pt-3 pb-3">
                      <img height="50" className="rounded-circle" src="/img/ignacio.jpg"/>

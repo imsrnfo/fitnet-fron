@@ -158,7 +158,9 @@ span {
 
 #sidebar .sidebar-header {
 	padding: 20px;
-	/* https://trianglify.io/ */
+}
+
+#sidebar .sidebar-background {
 	background: url(../img/header-bg.svg);
 	background-size: cover;
 }
