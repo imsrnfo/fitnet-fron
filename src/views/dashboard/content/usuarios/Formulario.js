@@ -53,17 +53,6 @@ class FormularioArticulos extends Component{
         this.props.history.push(`/dashboard/usuarios/lista`);
     }
 
-    cargarImagen(event){
-        let componente = this;
-        let files = event.target.files;
-        let reader = new FileReader();
-        reader.readAsDataURL(files[0]);
-        reader.onload=(event)=>{
-            console.warn("imagen: " , event.target.result);
-            componente.setState({ objeto: { ...this.state.objeto, imagen: event.target.result} });
-        }
-    }
-
     onInputChange(campo, valor, valido) {
         let nuevoCampo = {valido: valido, valor: valor};
         this.setState({ objeto: { ...this.state.objeto, [campo]: nuevoCampo}}, function(){
