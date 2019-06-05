@@ -82,28 +82,38 @@ class FormularioArticulos extends Component{
                                         <div className="col-12">
                                             <form onSubmit={this.formSubmit}>
 
-                                                <div className="form-row">
-                                                    <div className="form-group col-md-6">
-                                                        <TextInput campo="username" onInputChange={this.onInputChange} label="Username" validaciones={{'min-lenght' : 3, 'max-lenght' : 7, 'basicas': ['not-null','email']}}/>
-                                                    </div>
-                                                    <div className="form-group col-md-6">
-                                                        <TextInput campo="password" onInputChange={this.onInputChange} label="Password" validaciones={{'min-lenght' : 3, 'max-lenght' : 7, 'basicas': ['not-null','email']}}/>
-                                                    </div>
-                                                </div>
+                                               <div className="row">
+                                                   <div className="col-md-4 text-center">
 
-                                                <div className="form-row">
-                                                    <div className="form-group col-md-6">
-                                                        <TextInput campo="email" onInputChange={this.onInputChange} label="Email" validaciones={{'min-lenght' : 3, 'max-lenght' : 7, 'basicas': ['not-null','email']}}/>
-                                                    </div>
-                                                    <div className="form-group col-md-6">
                                                         <ImageInput campo="imagen" onInputChange={this.onInputChange} label="Imagen" validaciones={{'basicas': ['not-null']}}/>
-                                                    </div>
-                                                </div>
 
-                                                <div class="mt-3">
-                                                    <button type="submit" className="btn btn-primary float-right ml-3" disabled={!this.state.formularioValido}>Aceptar</button>
-                                                    <button className="btn btn-secondary float-right" onClick={this.btnCancelar} >Cancelar</button>
-                                                </div>
+                                                   </div>
+                                                    <div className="col-md-8">
+                                                         <div className="form-row">
+                                                            <div className="form-group col-md-12">
+                                                                <TextInput campo="username" onInputChange={this.onInputChange} label="Username" validaciones={{'basicas': ['not-null']}}/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="form-row">
+                                                            <div className="form-group col-md-12">
+                                                                <TextInput campo="password" onInputChange={this.onInputChange} label="Password" validaciones={{'min-lenght' : 6, 'max-lenght' : 18, 'basicas': ['not-null']}}/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="form-row">
+                                                            <div className="form-group col-md-12">
+                                                                <TextInput campo="email" onInputChange={this.onInputChange} label="Email" validaciones={{'min-lenght' : 3, 'max-lenght' : 32, 'basicas': ['not-null','email']}}/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                               </div>
+
+                                               <div className="mt-3">
+                                                        <button type="submit" className="btn btn-primary float-right ml-3" disabled={!this.state.formularioValido}>Aceptar</button>
+                                                        <button className="btn btn-secondary float-right" onClick={this.btnCancelar} >Cancelar</button>
+                                               </div>
+
                                             </form>
                                         </div>
                                     </div>

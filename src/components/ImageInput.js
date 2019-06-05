@@ -7,9 +7,11 @@ class ImageInput extends React.Component {
         super(props);
         this.state = {
             valor: '',
-            mensajeInvalido: undefined
+            mensajeInvalido: undefined,
+            customImg : false
         }
-         this.validar = this.validar.bind(this);
+        this.fileUpload = React.createRef();
+        this.validar = this.validar.bind(this);
     }
 
     validar(event){
@@ -40,9 +42,15 @@ class ImageInput extends React.Component {
                if (errores.length>0){
                     componente.setState({
                            valor:event.target.result,
-                           mensajeInvalido: errores[0]
+                           mensajeInvalido: errores[0],
+                           customImg: false
                     });
                 }else{
+                    componente.setState({
+                           valor:event.target.result,
+                           mensajeInvalido: undefined,
+                           customImg: true
+                    });
                     valido = true;
                 }
                 componente.props.onInputChange(componente.props.campo,event.target.result,valido);
@@ -50,17 +58,39 @@ class ImageInput extends React.Component {
         }else{
              this.setState({
                    valor: undefined,
-                   mensajeInvalido: 'El campo no puede ser vacio.'
+                   mensajeInvalido: 'El campo no puede ser vacio.',
+                   customImg: false
             });
             this.props.onInputChange(this.props.campo,undefined,false);
         }
     }
 
     render() {
+
+        var imgUrl = this.state.customImg ? this.state.valor : window.location.origin + '/img/image-solid.svg';
+        var opacidad = this.state.customImg ? 1 : 0.1;
+        var sectionStyle = {
+            opacity : opacidad,
+            backgroundImage:  'url(' + imgUrl + ')'
+        };
+
         return (
-           <div className="form-group">
-               <label for="inputImagen">{this.props.label}</label>
-               <input
+
+            <div>
+
+
+               <div className="row">
+                <div className="mx-auto m-5 col-xl-6 col-lg-10 col-md-10 col-sm-12" >
+                  <div className="FlexEmbed FlexEmbed-ratio">
+                    <div className="UserImage FlexEmbed-content" style={ sectionStyle } ></div>
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <button type="button" className="btn btn-secondary mx-auto" onClick={event => this.fileUpload.current.click()}>Subir archivo</button>
+                <input
+                   hidden
+                   ref={this.fileUpload}
                    id="inputImagen"
                    type="file" name="file"
                    className={" form-control "
@@ -68,9 +98,15 @@ class ImageInput extends React.Component {
                        + (this.state.mensajeInvalido!==undefined && this.state.mensajeInvalido.length===0 ? ' is-valid ' : '')
                    }
                    onChange={this.validar}
-               />
-               {this.state.mensajeInvalido!==undefined && this.state.mensajeInvalido.length>0 &&  <div className="invalid-feedback"> {this.state.mensajeInvalido} </div>}
-           </div>
+                />
+                {this.state.mensajeInvalido!==undefined && this.state.mensajeInvalido.length>0 &&  <div className="invalid-feedback"> {this.state.mensajeInvalido} </div>}
+              </div>
+
+
+            </div>
+
+
+
         );
     }
 }
