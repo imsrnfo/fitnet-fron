@@ -40,11 +40,18 @@ class FormularioArticulos extends Component{
     formSubmit(event){
         event.preventDefault();
         let { history } = this.props;
-        httpPost('/usuarios/crear',this.state).then(
+        let {state} = this;
+
+        var usuarioDTO = {};
+        Object.keys(this.state.objeto).forEach(function(key,index) {
+            usuarioDTO[key] = state.objeto[key].valor;
+        });
+
+        httpPost('/usuarios/crear',usuarioDTO).then(
             function(response) {
                 history.push(`/dashboard/usuarios/lista`);
             }).catch(function(error) {
-            alert(error);
+            alert(error.response.data.mensaje);
         });
     }
 

@@ -24,8 +24,7 @@ class ImageInput extends React.Component {
             reader.onload=(event)=>{
                 console.warn("imagen: " , event.target.result);
 
-                componente.setState(
-                {
+                componente.setState({
                     valor:event.target.result,
                      mensajeInvalido: ''
                 });

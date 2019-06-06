@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import store from '../../../../store';
-import {httpGet} from '../../../../util/HttpRequest'
+import {authHttpGet} from '../../../../util/HttpRequest'
 
-class ListaArticulos extends Component{
+class ListaUsuarios extends Component{
 
     constructor(){
         super();
@@ -13,20 +13,15 @@ class ListaArticulos extends Component{
             usuarios : []
         };
 
-        store.subscribe(()=>{
-           this.setState({
-               usuarios:store.getState().usuarios
-           });
-        });
+        let componente = this;
 
-        httpGet('/usuarios').then(
+        authHttpGet('/usuarios').then(
         function(response) {
-            store.dispatch({
-               type: "SET_USUARIOS",
-               usuarios: response.data
-           });
+            componente.setState({
+                usuarios:response.data
+            });
         }).catch(function(error) {
-                alert(error);
+                alert(error.response.data.mensaje);
         });
 
     }
@@ -36,6 +31,11 @@ class ListaArticulos extends Component{
     }
 
     render(){
+        var imgUrl = window.location.origin + '/img/loading_spinner.gif';
+        var sectionStyle = {
+            background: 'transparent url('+imgUrl+') center no-repeat'
+        };
+
         return(
             <div className="container-fluid">
                 <div className="row">
@@ -43,7 +43,7 @@ class ListaArticulos extends Component{
                         <div className="card closeable-card">
                             <div className="card-header d-flex flex-row  align-items-center">
                                 <div className="w-100"> Usuarios</div>
-                                <div> <i className="fas fa-times cursor-pointer p-1" onclick="ocultar(this);"></i> </div>
+                                <div> <i className="fas fa-times cursor-pointer p-1" onClick="ocultar(this);"></i> </div>
                             </div>
                             <div className="card-body">
                                 <div className="row mb-3">
@@ -60,13 +60,19 @@ class ListaArticulos extends Component{
                                 <table className="table">
                                     <thead className="thead-dark">
                                         <tr>
+                                            <th scope="col">#</th>
                                             <th scope="col">Nombre</th>
+                                            <th scope="col">Correo</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {this.state.usuarios.map(usuario =>
                                             <tr>
-                                                <td>{usuario.nombre}</td>
+                                                <td>
+                                                    <img style={sectionStyle} height="50" width="50" className="rounded-circle" src={usuario.imagen}/>
+                                                </td>
+                                                <td>{usuario.username}</td>
+                                                <td>{usuario.email}</td>
                                             </tr>
                                         )}
                                     </tbody>
@@ -101,4 +107,4 @@ class ListaArticulos extends Component{
     }
 }
 
-export default ListaArticulos;
+export default ListaUsuarios;

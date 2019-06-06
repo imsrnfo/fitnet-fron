@@ -19,6 +19,61 @@ export function httpGet(url) {
   });
 }
 
+export function authHttpGet(url) {
+    return new Promise(function(resolve, reject) {
+        httpGet(url).then(function(response) {
+             resolve(response);
+        }).catch(function(error) {
+            if (error.response.status === 401 && error.response.data.error === "invalid_token"){
+                refreshToken().then(function(response) {
+                    httpGet(url).then(function(response) {
+                        resolve(response);
+                    }).catch(function(error) {
+                        reject(error);
+                    });
+                }).catch(function(error) {
+                    reject(error);
+                });
+            }else{
+                reject(error);
+            }
+        });
+    });
+}
+
+function refreshToken(){
+    return new Promise(function(resolve, reject) {
+
+        var session_url = dominioAuthenticationServer+'/oauth/token';
+        var uname = 'USER_CLIENT_APP';
+        var pass = 'password';
+
+        let jwtRefreshToken = localStorage.getItem("JWT-Refresh");
+
+        var bodyFormData = new FormData();
+        bodyFormData.set('refresh_token', jwtRefreshToken);
+        bodyFormData.set('grant_type', 'refresh_token');
+
+        if (jwtRefreshToken === null){
+            reject(Error("Local storage jwt refresh es nulo"));
+        }else{
+            axios.post(session_url, bodyFormData, {
+                auth: {
+                    username: uname,
+                    password: pass
+                }
+            }).then(function(response) {
+                localStorage.setItem('JWT', response.data.access_token);
+                localStorage.setItem('JWT-Refresh', jwtRefreshToken);
+                resolve(response);
+            }).catch(function(error) {
+                console.log(error);
+                reject(error);
+            });
+        }
+    });
+}
+
 export function httpPost(url,data) {
     return new Promise(function(resolve, reject) {
         let authToken = localStorage.getItem("JWT");
@@ -57,6 +112,7 @@ export function login(username, password) {
             }
         }).then(function(response) {
             localStorage.setItem('JWT', response.data.access_token);
+            localStorage.setItem('JWT-Refresh', response.data.refresh_token);
             resolve(response);
         }).catch(function(error) {
             console.log(error);
