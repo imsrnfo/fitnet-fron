@@ -1,8 +1,28 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import jwtDecode from 'jwt-decode';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class Sidebar extends Component{
+
+     constructor(props){
+        super(props);
+
+        let authToken = localStorage.getItem("JWT");
+
+        var decoded = jwtDecode(authToken);
+        console.log(decoded);
+
+        let username = decoded.user_name;
+        let imagen = decoded.imagen !== null ? decoded.imagen : window.location.origin + '/img/loading_spinner.gif';
+        let email = decoded.email;
+
+        this.state = {
+            username: username,
+            imagen: imagen,
+            stylePath: undefined //'https://bootswatch.com/4/cerulean/bootstrap.min.css'
+        };
+    }
 
     render(){
         return(
@@ -10,9 +30,9 @@ class Sidebar extends Component{
                <div className={"small sidebar-header" + (this.props.customStyle===undefined ? ' sidebar-background ' : '')}>
                  <h3>
                    <div className="pt-3 pb-3">
-                     <img height="50" className="rounded-circle" src="/img/ignacio.jpg"/>
+                     <img height="50" className="rounded-circle" src={this.state.imagen}/>
                      <div className="pt-2">
-                       <small>Nombre usuario</small>
+                       <small>{this.state.username}</small>
                      </div>
                    </div>
                  </h3>
@@ -75,7 +95,7 @@ class Sidebar extends Component{
                      <i className="fas fa-cog"></i>Configuracion
                    </a>
                    <ul className="collapse list-unstyled" id="configuracionSubmenu">
-                     <li><a href="#">Usuarios</a></li>
+                     <li><Link to="/dashboard/usuarios/lista">Usuarios</Link></li>
                      <li><a href="#">Actividades</a></li>
                      <li><a href="#">Conceptos</a></li>
                      <li><Link to="/dashboard/articulos/lista">Articulos</Link></li>

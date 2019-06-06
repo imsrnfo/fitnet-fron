@@ -24,7 +24,7 @@ export function authHttpGet(url) {
         httpGet(url).then(function(response) {
              resolve(response);
         }).catch(function(error) {
-            if (error.response.status === 401 && error.response.data.error === "invalid_token"){
+            if (error.response && error.response.status === 401 && error.response.data.error === "invalid_token"){
                 refreshToken().then(function(response) {
                     httpGet(url).then(function(response) {
                         resolve(response);

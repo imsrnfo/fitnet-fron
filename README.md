@@ -1,3 +1,7 @@
+# Para instalar paquetes usar npm install <nombre_paquete> --save
+
+el --save guarda la dependencia en el package.json
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

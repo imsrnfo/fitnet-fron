@@ -21,7 +21,7 @@ class ListaUsuarios extends Component{
                 usuarios:response.data
             });
         }).catch(function(error) {
-                alert(error.response.data.mensaje);
+                alert(error.response? error.response.data.mensaje : error);
         });
 
     }
