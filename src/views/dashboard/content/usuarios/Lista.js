@@ -67,7 +67,7 @@ class ListaUsuarios extends Component{
                                     </thead>
                                     <tbody>
                                         {this.state.usuarios.map(usuario =>
-                                            <tr>
+                                            <tr key={usuario.username} >
                                                 <td>
                                                     <img style={sectionStyle} height="50" width="50" className="rounded-circle" src={usuario.imagen}/>
                                                 </td>
