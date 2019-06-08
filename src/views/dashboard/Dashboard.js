@@ -10,6 +10,7 @@ import FormularioArticulos from './content/articulos/Formulario'
 import ListaUsuarios from './content/usuarios/Lista'
 import FormularioUsuarios from './content/usuarios/Formulario'
 import {httpGet} from '../../util/HttpRequest'
+import LoadingSpinner from '../../components/loading/LoadingSpinner'
 
 import axios from 'axios';
 
@@ -23,7 +24,7 @@ class Dashboard extends Component{
     }
 
     componentDidMount() {
-        window.ocultarLoading();
+        this.refs.child.ocultarLoading();
         /*let { history } = this.props;
         httpGet('/admins').then(
         function(response) {
@@ -38,16 +39,7 @@ class Dashboard extends Component{
         return(
          <div>
              <link rel="stylesheet" type="text/css" href={this.state.stylePath}/>
-            <div id="loading-screen">
-                <div id="loading-spinner">
-                    <div className="lds-ring">
-                        <div className="border-bottom border-primary"></div>
-                        <div className="border-bottom border-primary"></div>
-                        <div className="border-bottom border-primary"></div>
-                        <div className="border-bottom border-primary"></div>
-                    </div>
-                </div>
-            </div>
+             <LoadingSpinner ref="child" fullScreen="true" />
              <div className="wrapper">
                   <Sidebar customStyle={this.state.stylePath}></Sidebar>
                   <div id="content">

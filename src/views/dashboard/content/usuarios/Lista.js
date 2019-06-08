@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import store from '../../../../store';
 import {authHttpGet} from '../../../../util/HttpRequest'
+import LoadingSpinner from '../../../../components/loading/LoadingSpinner'
 
 class ListaUsuarios extends Component{
 
@@ -22,6 +23,8 @@ class ListaUsuarios extends Component{
             });
         }).catch(function(error) {
                 alert(error.response? error.response.data.mensaje : error);
+        }).finally(function(){
+            componente.refs.child.ocultarLoading();
         });
 
     }
@@ -41,6 +44,7 @@ class ListaUsuarios extends Component{
                 <div className="row">
                     <div className="col-md-12">
                         <div className="card closeable-card">
+                            <LoadingSpinner ref="child" />
                             <div className="card-header d-flex flex-row  align-items-center">
                                 <div className="w-100"> Usuarios</div>
                                 <div> <i className="fas fa-times cursor-pointer p-1" onClick="ocultar(this);"></i> </div>

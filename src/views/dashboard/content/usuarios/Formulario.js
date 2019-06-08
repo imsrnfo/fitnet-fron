@@ -4,6 +4,7 @@ import store from '../../../../store';
 import {httpPost} from "../../../../util/HttpRequest";
 import TextInput from '../../../../components/TextInput';
 import ImageInput from '../../../../components/ImageInput';
+import LoadingSpinner from '../../../../components/loading/LoadingSpinner'
 
 class FormularioArticulos extends Component{
 
@@ -37,22 +38,30 @@ class FormularioArticulos extends Component{
 
     }
 
+    componentDidMount() {
+        this.refs.child.ocultarLoading();
+    }
+
     formSubmit(event){
         event.preventDefault();
         let { history } = this.props;
         let {state} = this;
+        let componente = this;
 
         var usuarioDTO = {};
         Object.keys(this.state.objeto).forEach(function(key,index) {
             usuarioDTO[key] = state.objeto[key].valor;
         });
 
+        componente.refs.child.mostrarLoading();
+
         httpPost('/usuarios/crear',usuarioDTO).then(
             function(response) {
                 history.push(`/dashboard/usuarios/lista`);
             }).catch(function(error) {
-            alert(error.response.data.mensaje);
-        });
+                componente.refs.child.ocultarLoading();
+                alert(error.response !== undefined ? error.response.data.mensaje : error);
+            });
     }
 
     btnCancelar(event){
@@ -79,6 +88,7 @@ class FormularioArticulos extends Component{
                 <div className="row">
                     <div className="col-md-12">
                         <div className="card closeable-card">
+                            <LoadingSpinner ref="child" />
                             <div className="card-header d-flex flex-row  align-items-center">
                                 <div className="w-100"> Titulo </div>
                                 <div> <i className="fas fa-times cursor-pointer p-1" onclick="window.ocultar(this);"></i> </div>

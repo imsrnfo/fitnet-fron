@@ -35,11 +35,25 @@
 body{
 	margin: 0 auto;
 }
-#loading-spinner{
+.loading-spinner{
 	margin-top: calc(50vh - 25px);
 	margin-left: calc(50vw - 25px);
 }
 
-#loading-screen{
+.loading-spinner-component{
+	margin-left: calc(50% - 25px);
+	top:  calc(50% - 25px);
+	position: absolute;
+}
+
+.loading-screen{
     width:100%; height:100vh; position: fixed; background-color: white; z-index: 9999
+}
+
+.loading-component{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: white;
+    z-index: 9999;
 }
