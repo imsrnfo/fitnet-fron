@@ -49,7 +49,7 @@ class Dashboard extends Component{
                         <Route path="/dashboard/lista" component={Lista} />
                         <Route path="/dashboard/articulos/lista" component={ListaArticulos} />
                         <Route path="/dashboard/articulos/crear" component={FormularioArticulos} />
-                        <Route path="/dashboard/usuarios/lista" component={ListaUsuarios} />
+                        <Route path="/dashboard/usuarios/lista/:pagina" component={ListaUsuarios} />
                         <Route path="/dashboard/usuarios/crear" component={FormularioUsuarios} />
                     </div>
                   </div>

@@ -11,6 +11,9 @@
     background-repeat: no-repeat;
 }
 
+.table td{
+    vertical-align: middle !important;
+}
 
 /*
 	DEMO STYLE

@@ -3,30 +3,33 @@ import ReactDOM from 'react-dom';
 import store from '../../../../store';
 import {authHttpGet} from '../../../../util/HttpRequest'
 import LoadingSpinner from '../../../../components/loading/LoadingSpinner'
+import { Link } from "react-router-dom";
 
 class ListaUsuarios extends Component{
 
     constructor(){
         super();
         this.btnNuevoClick = this.btnNuevoClick.bind(this);
-
         this.state = {
-            usuarios : []
+            usuarios : [],
+            paginaActual : 1
         };
+    }
 
+    componentDidMount () {
+        this.setState({paginaActual : parseInt(this.props.match.params.pagina)});
         let componente = this;
-
-        authHttpGet('/usuarios').then(
+        const elementosPorPagina = 1;
+        authHttpGet('/usuarios/listar/'+this.props.match.params.pagina+'/'+elementosPorPagina).then(
         function(response) {
             componente.setState({
-                usuarios:response.data
+                usuarios:response.data.content
             });
         }).catch(function(error) {
                 alert(error.response? error.response.data.mensaje : error);
         }).finally(function(){
             componente.refs.child.ocultarLoading();
         });
-
     }
 
     btnNuevoClick(event){
@@ -89,9 +92,9 @@ class ListaUsuarios extends Component{
                                                 <span className="sr-only">Previous</span>
                                             </a>
                                         </li>
-                                        <li className="page-item"><a className="page-link" href="#">1</a></li>
-                                        <li className="page-item"><a className="page-link" href="#">2</a></li>
-                                        <li className="page-item"><a className="page-link" href="#">3</a></li>
+                                        <li className="page-item"><a className="page-link" href="#">{this.state.paginaActual > 1 ? this.state.paginaActual - 1 : this.state.paginaActual}</a></li>
+                                        <li className="page-item"><Link to={"/dashboard/usuarios/lista/"+(this.state.paginaActual+1)} className="page-link">{this.state.paginaActual > 1 ? this.state.paginaActual : this.state.paginaActual + 1}</Link></li>
+                                        <li className="page-item"><a className="page-link" href="#">{this.state.paginaActual > 1 ? this.state.paginaActual + 1 : this.state.paginaActual + 2}</a></li>
                                         <li className="page-item">
                                             <a className="page-link" href="#" aria-label="Next">
                                                 <span aria-hidden="true">&raquo;</span>
